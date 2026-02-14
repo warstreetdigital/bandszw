@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine Sasha Tapera</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --cream:#faf6f4;
+  --soft-red:#f4d9dc;
+  --deep-red:#c75c6a;
+  --text:#2a1c1f;
+  --muted:#9a6a72;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:"Inter",system-ui;
+  background:linear-gradient(180deg,var(--cream),var(--soft-red));
+  color:var(--text);
+}
+
+.container{
+  max-width:620px;
+  margin:auto;
+  padding:50px 22px 120px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:70px;
+}
+.header h1{
+  font-family:"Playfair Display",serif;
+  font-size:40px;
+  margin:0;
+}
+.header p{
+  margin-top:12px;
+  font-size:14px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.rail{
+  display:flex;
+  gap:24px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  margin-bottom:70px;
+}
+.rail::-webkit-scrollbar{display:none}
+.rail img{
+  width:320px;
+  height:420px;
+  object-fit:cover;
+  border-radius:28px;
+  scroll-snap-align:center;
+  flex-shrink:0;
+  box-shadow:0 25px 60px rgba(120,30,40,.08);
+}
+
+.message{
+  margin-bottom:70px;
+}
+.message h3{
+  font-size:13px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  color:var(--muted);
+}
+.message p{
+  font-size:17px;
+  line-height:2.1;
+}
+
+.audio-wrap{
+  display:flex;
+  justify-content:center;
+}
+.audio-btn{
+  padding:16px 70px;
+  border-radius:60px;
+  border:1px solid rgba(199,92,106,.25);
+  background:linear-gradient(135deg,#f8e4e7,#f2ccd2);
+  font-weight:600;
+  letter-spacing:4px;
+  cursor:pointer;
+  transition:.3s ease;
+}
+.audio-btn.playing{
+  background:linear-gradient(135deg,#e9b5bd,#de9aa6);
+}
+
+.footer{
+  text-align:center;
+  margin-top:90px;
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>Happy Valentine Sasha Tapera</h1>
+  <p>From Munesuishe</p>
+</div>
+
+<div class="rail" id="rail">
+  <img src="sasha1.jpg">
+  <img src="sasha2.jpg">
+  <img src="sasha3.jpg">
+  <img src="sasha4.jpg">
+  <img src="sasha5.jpg">
+  <img src="sasha6.jpg">
+</div>
+
+<div class="message">
+  <h3>A LETTER</h3>
+  <p>
+    Sasha Tapera,  
+    Loving you feels intentional — calm, steady, and deeply real.  
+    You move with grace and strength in a way that inspires me daily.  
+    This day isn’t about grand gestures —  
+    it’s about choosing you again and again.  
+
+    You are appreciated.  
+    You are cherished.  
+    You are loved — beautifully and truthfully.  
+
+    — Munesuishe
+  </p>
+</div>
+
+<div class="audio-wrap">
+  <button class="audio-btn" id="audioBtn">PLAY</button>
+</div>
+<audio id="audio" src="sasha.mp3"></audio>
+
+<div class="footer">
+  A memory preserved by WarStreet Experience Model
+</div>
+
+</div>
+
+<script>
+const rail = document.getElementById('rail');
+const images = rail.querySelectorAll('img');
+let index = 0;
+let autoplay;
+
+function scrollToImage(i){
+  const img = images[i];
+  const offset =
+    img.offsetLeft -
+    rail.offsetWidth / 2 +
+    img.offsetWidth / 2;
+
+  rail.scrollTo({ left: offset, behavior: "smooth" });
+}
+
+function startAutoplay(){
+  autoplay = setInterval(() => {
+    scrollToImage(index);
+    index = (index + 1) % images.length;
+  }, 2800);
+}
+
+function stopAutoplay(){
+  clearInterval(autoplay);
+}
+
+rail.addEventListener("touchstart", stopAutoplay);
+rail.addEventListener("mousedown", stopAutoplay);
+rail.addEventListener("touchend", startAutoplay);
+rail.addEventListener("mouseup", startAutoplay);
+
+startAutoplay();
+
+const btn = document.getElementById('audioBtn');
+const audio = document.getElementById('audio');
+let playing = false;
+
+btn.onclick = () => {
+  if(playing){
+    audio.pause();
+    btn.textContent = "PLAY";
+    btn.classList.remove("playing");
+  } else {
+    audio.play();
+    btn.textContent = "PAUSE";
+    btn.classList.add("playing");
+  }
+  playing = !playing;
+};
+</script>
+
+</body>
+</html>
